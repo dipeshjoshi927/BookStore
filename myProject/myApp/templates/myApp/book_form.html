@@ -1,0 +1,42 @@
+{% extends "myApp/base.html" %}
+{% block content %}
+    <div class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-800 to-black text-white">
+        <!-- Form Container -->
+        <div class="w-full max-w-3xl p-8 mt-6 mx-auto bg-white bg-opacity-20 backdrop-blur-md rounded-lg shadow-xl">
+            <h2 class="text-2xl font-semibold text-center mb-6 text-gray-100">
+                {% if form.instance.pk %}
+                    Edit Book
+                {% else %}
+                    Add Book
+                {% endif %}
+            </h2>
+
+            <!-- Form -->
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+
+                <!-- Form Fields -->
+                <div class="space-y-4">
+                    {% for field in form %}
+                        <div class="space-y-2">
+                            <label for="{{ field.id_for_label }}" class="text-lg font-medium text-gray-300">{{ field.label }}</label>
+                            <div class="bg-gray-700 p-2 rounded-lg shadow-md">
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-lg transition-all">
+                    Save
+                </button>
+            </form>
+
+            <!-- Back to List Link -->
+            <a href="{% url 'book_list' %}" class="block mt-6 px-6 py-2 bg-gray-600 hover:bg-gray-700 transition-all rounded-lg shadow-md text-center text-white font-semibold">
+                Back to List
+            </a>
+        </div>
+    </div>
+{% endblock %}
